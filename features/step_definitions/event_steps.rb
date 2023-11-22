@@ -16,6 +16,11 @@ def parse_time_expression(expression)
   end
 end
 
+# Additional Helper method to convert string to boolean
+def to_boolean(str)
+  str == 'true'
+end
+
 Given /^the following states exist:$/ do |table|
   table.hashes.each do |row|
     State.create!(name: row['name'], symbol: row['symbol'], fips_code: row['fips_code'], is_territory: row['is_territory'], lat_min: row['lat_min'], lat_max: row['lat_max'], long_min: row['long_min'], long_max: row['long_max'])
@@ -54,4 +59,55 @@ end
 
 Then /^the event should not be saved due to invalid (start|end) time$/ do |_|
   # The steps above already include the expectation that the record count does not change
+end
+
+# New Step Definitions
+
+Given /^the state "([^"]*)" exists$/ do |state_name|
+  State.create!(name: state_name, symbol: state_name[0..1].upcase, fips_code: Random.rand(1..99), is_territory: false, lat_min: 30, lat_max: 50, long_min: -120, long_max: -70)
+end
+
+Given /^I filter events by state "([^"]*)"$/ do |state_symbol|
+  visit events_path('filter-by' => 'state-only', 'state' => state_symbol)
+end
+
+Then /^I should see events from county "([^"]*)"$/ do |county_name|
+  expect(page).to have_content(Event.where(county: County.find_by(name: county_name)).map(&:name).join(' '))
+end
+
+Then /^I should not see events from county "([^"]*)"$/ do |county_name|
+  expect(page).to_not have_content(Event.where(county: County.find_by(name: county_name)).map(&:name).join(' '))
+end
+
+# Additional scenarios to test event creation with various conditions
+When /^I try to create an event with ([^"]*) name$/ do |name_condition|
+  name = name_condition == 'empty' ? '' : 'Sample Event'
+  county = County.first
+  expect {
+    Event.create(name: name, county: county, start_time: Time.zone.now + 1.week, end_time: Time.zone.now + 2.weeks)
+  }.to_not change(Event, :count) if name_condition == 'empty'
+end
+
+Then /^the event should not be saved due to invalid name$/ do
+  expect(Event.where(name: '')).to be_empty
+end
+
+# Additional step definitions needed for the above scenarios would include:
+Then /^I should see an event named "([^"]*)"$/ do |event_name|
+  expect(page).to have_content(event_name)
+end
+
+Then /^I should see an event with a 255-character name$/ do
+  expect(Event.where('LENGTH(name) = 255')).to exist
+end
+
+When /^I try to create an event with empty name$/ do
+  county = County.first
+  @event = Event.new(name: '', county: county, start_time: 1.week.from_now, end_time: 2.weeks.from_now)
+  @event.save
+end
+
+Then /^the event should not be saved due to invalid name$/ do
+  expect(@event.persisted?).to be false
+  expect(@event.errors[:name]).to include("can't be blank")
 end

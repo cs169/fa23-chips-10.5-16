@@ -9,6 +9,10 @@ Feature: Manage Events, Counties, and States
       | name        | state      | fips_code | fips_class |
       | Los Angeles | California | 37        | H1         |
       | Kings       | New York   | 47        | H4         |
+    And the following events exist:
+      | name               | county      | start_time           | end_time                      |
+      | LA Tech Conference | Los Angeles | one week from now    | one week and 5 hours from now |
+      | NY Music Festival  | Kings       | two weeks from now   | two weeks and 3 days from now |
 
   Scenario: Creating an event with valid times
     Given the following events exist:
@@ -23,3 +27,26 @@ Feature: Manage Events, Counties, and States
   Scenario: Attempting to create an event where end time is before start time
     When I try to create an event "Weird Conference" in "Los Angeles" with an end time before its start time
     Then the event should not be saved due to invalid end time
+
+  Scenario: Creating an event with valid times and all fields populated
+    Given the following events exist:
+      | name                 | county      | start_time            | end_time                | description             | location                |
+      | Full Detail Event    | Los Angeles | one week from now     | two weeks from now      | A fully detailed event  | Los Angeles Convention Center |
+    Then I should see an event named "Full Detail Event"
+    
+  Scenario: Filtering events by state
+    Given the state "California" exists
+    And the state "New York" exists
+    And the following events exist:
+      | name               | county      | start_time           | end_time                      |
+      | LA Tech Conference | Los Angeles | one week from now    | one week and 5 hours from now |
+      | NY Music Festival  | Kings       | two weeks from now   | two weeks and 3 days from now |
+    # Existing event creation remains the same
+    When I filter events by state "CA"
+    Then I should see events from county "Los Angeles"
+    And I should not see events from county "Kings"
+
+  Scenario: Attempting to create an event with an empty name
+    When I try to create an event with empty name
+    Then the event should not be saved due to invalid name
+
