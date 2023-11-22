@@ -4,4 +4,7 @@ class RepresentativesController < ApplicationController
   def index
     @representatives = Representative.all
   end
+
+
+ 
 end

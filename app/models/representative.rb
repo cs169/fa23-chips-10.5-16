@@ -17,8 +17,11 @@ class Representative < ApplicationRecord
         end
       end
 
+      # rep = Representative.create!({ name: official.name, ocdid: ocdid_temp,
+      #     title: title_temp })
+      ## The new representative's information should contain profile picture
       rep = Representative.create!({ name: official.name, ocdid: ocdid_temp,
-          title: title_temp })
+          title: title_temp, party: party, address: address, photo:photoUrl})
       reps.push(rep)
     end
 

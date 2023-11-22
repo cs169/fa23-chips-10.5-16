@@ -16,6 +16,51 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  json_return = 
+    {
+      "kind": "civicinfo#representativeInfoResponse",
+      "normalizedInput": {
+        "locationName": "Sample Location",
+        "line1": "123 Main Street",
+        "city": "Sample City",
+        "state": "SS",
+        "zip": "12345"
+      },
+      "divisions": {
+        "division_key_1": {"name": "Division Name 1", "alsoKnownAs": ["Alias 1", "Alias 2"], "officeIndices": [0, 1]},
+        "division_key_2": {"name": "Division Name 2", "alsoKnownAs": ["Alias 3", "Alias 4"], "officeIndices": [2]}
+      },
+      "offices": [
+        {"name": "Office Name 1", "divisionId": "division_key_1", "levels": ["Level 1"], "roles": ["Role 1", "Role 2"],
+         "sources": [{"name": "Source 1", "official": true}], "officialIndices": [0, 1]},
+        {"name": "Office Name 2", "divisionId": "division_key_1", "levels": ["Level 2"], "roles": ["Role 3"],
+         "sources": [{"name": "Source 2", "official": false}], "officialIndices": [2]},
+        {"name": "Office Name 3", "divisionId": "division_key_2", "levels": ["Level 3"], "roles": ["Role 4"],
+         "sources": [{"name": "Source 3", "official": true}], "officialIndices": [3]}
+      ],
+      "officials": [
+        {"name": "Official Name 1", "address": [{"locationName": "Official Location 1", "line1": "456 Oak Avenue",
+                                                   "city": "Official City 1", "state": "OS1", "zip": "54321"}],
+         "party": "Party 1", "phones": ["111-222-3333", "444-555-6666"], "urls": ["http://www.official1.com"],
+         "photoUrl": "http://www.official1.com/photo.jpg", "emails": ["official1@example.com"],
+         "channels": [{"type": "Twitter", "id": "@official1"}, {"type": "Facebook", "id": "official1"}]},
+        {"name": "Official Name 2", "address": [{"locationName": "Official Location 2", "line1": "789 Maple Street",
+                                                   "city": "Official City 2", "state": "OS2", "zip": "98765"}],
+         "party": "Party 2", "phones": ["777-888-9999"], "urls": ["http://www.official2.com"],
+         "photoUrl": "http://www.official2.com/photo.jpg", "emails": ["official2@example.com"],
+         "channels": [{"type": "Instagram", "id": "official2"}]}
+      ]
+    }
+
+  config.before(:each) do
+    stub_request(:get,  https://www.googleapis.com/civicinfo/v2/representatives).
+      with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.8.0'}).
+      to_return(status: 200, body: JSON.generate(json_return), headers: {})
+  end
+end
+    
+
+RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
