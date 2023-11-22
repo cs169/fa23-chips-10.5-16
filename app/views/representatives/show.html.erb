@@ -1,20 +1,35 @@
-<!-- app/views/representatives/show.html.erb -->
-<h1><%= 'Representative Profile' %></h1>
-<ul id="details">
- <li>
-    Name:
-    <%= @representative.name %>
-  </li>
-  <li>
-    Address:
-    <%= @representative.address %>
-  </li>
-  <li>
-    Policital Party:
-    <%= @representative.party %>
-  </li>
-   <li>
-    Photo
-    <%= @representative.photo %>
-  </li>
-</ul>
+<div class="container-fluid py-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2 text-center">
+      <h1 class="mt-4">Representative Profile</h1>
+      <div class="clearfix my-4">
+        <div class="float-center">
+          <div class="profile-info">
+            <% if @representative.photo.present? %>
+              <%= image_tag @representative.photo, alt: 'Representative Photo', class: 'img-fluid big-profile-photo mb-3' %>
+            <% else %>
+              No photo available
+            <% end %>
+            <h2 class="text-uppercase"><strong><%= @representative.name %></strong></h2>
+          </div>
+        </div>
+        <div class="float-right">
+          <%= link_to representatives_path, class: 'mx-1 btn btn-info' do %>
+            <i class="fas fa-list"></i>
+            Back to Search Page
+          <% end %>
+        </div>
+      </div>
+      <ul class="list-group text-center">
+        <li class="list-group-item">
+          <strong>Address:</strong>
+          <%= @representative.address %>
+        </li>
+        <li class="list-group-item">
+          <strong>Political Party:</strong>
+          <%= @representative.party %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
