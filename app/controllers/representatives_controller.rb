@@ -5,6 +5,10 @@ class RepresentativesController < ApplicationController
     @representatives = Representative.all
   end
 
+  def show
+    @representative = Representative.find(params[:id])
+  end
+
 
  
 end
