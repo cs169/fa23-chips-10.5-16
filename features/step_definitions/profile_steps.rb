@@ -1,9 +1,4 @@
 # features/step_definitions/representative_steps.rb
-
-Given('I am on home page') do
-  # Code to navigate to the Representative Search page
-end
-
 When('I click on the representative\'s name') do
   # Code to simulate clicking on the representative's name
 end

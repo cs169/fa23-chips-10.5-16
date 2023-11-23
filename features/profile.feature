@@ -6,7 +6,7 @@ Feature: Profile Page
   So that I can get more information about them
 
   Background:
-    Given I am on the representatives index page
+    Given I am on representatives home page
 
   Scenario: Search and View Representative Profile
   

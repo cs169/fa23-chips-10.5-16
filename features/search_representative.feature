@@ -6,11 +6,11 @@ Feature: Searching for Representatives
   So that I could see all representatives close to this address
 
 Background:
-    Given I am on the search page
+    Given I am on the representatives page
 
 Scenario: Successful search
     When I enter "Berkeley" and click "Search"
-    Then I should see the search page
+    Then I am on the search representatives page
     Then I should see "Kamala D. Harris"
     And I should see "Alex Padilla"
     And I should not see "Failed to find representative information. Please enter a valid address."
