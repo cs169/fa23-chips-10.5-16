@@ -7,8 +7,8 @@ Feature: Display rep list after clicking on a county from map
 Background: I have opened the app and clicked on California
 
 Scenario: Click on a county from the map
-  When I go to state/CA
-  When I click on Alameda County
+  When I go to the /state/CA page
+  And I click on Alameda County
   Then I should see a representatives table
 
 Scenario: Click on a county from the list
