@@ -8,7 +8,7 @@
             <% if @representative.photo.present? %>
               <%= image_tag @representative.photo, alt: 'Representative Photo', class: 'img-fluid big-profile-photo mb-3' %>
             <% else %>
-              No photo available
+               <%= image_tag '/app/assets/images/image_not_found.jpeg', alt: 'Picture Not Found', class: 'img-fluid big-profile-photo mb-3' %>
             <% end %>
             <h2 class="text-uppercase"><strong><%= @representative.name %></strong></h2>
           </div>
