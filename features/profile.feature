@@ -5,8 +5,11 @@ Feature: Profile Page
   I want to see the profile of a specific representative
   So that I can get more information about them
 
-  Scenario: Search and View Representative Profile
+  Background:
     Given I am on the representatives index page
+
+  Scenario: Search and View Representative Profile
+  
     When I input an address into the search input and click Search
     Then I should be shown a list of representatives matching the address
 
