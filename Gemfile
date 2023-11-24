@@ -29,7 +29,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'haml-rails'
 
 # Google Civic Client
-gem 'google-api-client', '~> 0.34'
+gem 'google-api-client', '~> 0.34', require: 'google/apis/civicinfo_v2'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

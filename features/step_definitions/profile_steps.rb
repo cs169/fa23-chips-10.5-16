@@ -1,4 +1,11 @@
 # features/step_definitions/representative_steps.rb
+# features/step_definitions/search_steps.rb
+
+Given(/^I am on the search page with the address "([^"]*)"$/) do |address|
+  visit search_page_path(address: address)
+end
+
+
 When('I click on the representative\'s name') do
   # Code to simulate clicking on the representative's name
 end
