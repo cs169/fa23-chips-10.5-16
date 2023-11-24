@@ -22,6 +22,7 @@ class Representative < ApplicationRecord
         name: official.name, ocdid: ocdid_temp, title: title_temp, party: (official.party unless official.party.nil?), address: address,
         photo: official.photo_url
       })
+
       reps.push(rep)
     end
     reps
