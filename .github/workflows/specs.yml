@@ -28,7 +28,7 @@ jobs:
         with:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - run: gem install bundler:2.1.4
-      - run: npm install -g yarn@1.19.1
+      - run: npm install -g yarn@1.22.4
       - run: bundle install
       - run: yarn install
 
