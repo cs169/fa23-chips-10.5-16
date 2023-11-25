@@ -1,19 +1,27 @@
 # features/step_definitions/search_steps.rb
-
 # When("I enter {string} and click {string}") do |address, button_text|
 #   fill_in 'address', with: address
 #   click_button button_text
 # end
 
-When('I enter {string} and click {string}')  do |address, button_text|
-  # Stubbing the external API call in the controller
+# Simulate a Google API error
+
+When('I enter {string} and click {string}') do |address, button_text|
+  # Conditionally stub the external API call
+  if address == 'Washington'
+    allow_any_instance_of(Google::Apis::CivicinfoV2::CivicInfoService)
+      .to receive(:representative_info_by_address)
+      .with(address: address)
+      .and_return(stub_successful_response)
+  else 
     allow_any_instance_of(Google::Apis::CivicinfoV2::CivicInfoService)
     .to receive(:representative_info_by_address)
     .with(address: address)
-    .and_return(stub_successful_response)
+    .and_return(stub_unsucessful_response)
+  end
 
-    fill_in 'address', with: address
-    click_button button_text
+  fill_in 'address', with: address
+  click_button button_text
 end
 
 Then /^I should see the following text (.*)$/ do |text|
