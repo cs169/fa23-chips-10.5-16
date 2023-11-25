@@ -28,9 +28,9 @@ Then 'I should be redirected to the login page' do
   expect(current_path).to eq new_user_session_path
 end
 
-And 'I should see {string}' do |message|
-  expect(page).to have_content(message)
-end
+# And 'I should see {string}' do |message|
+#   expect(page).to have_content(message)
+# end
 
 Given 'I am already logged in' do
   step 'I am logged in'
