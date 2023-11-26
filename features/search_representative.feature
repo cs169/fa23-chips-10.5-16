@@ -18,9 +18,3 @@ Scenario: Successful search
     Then I should see "Failed to find representative information. Please enter a valid address."
     And I should not see "Kamala D. Harris"
     And I should not see "Alex Padilla"
-
-  Scenario: Failed search
-    When I enter "Berkeley" and click "Search"
-    Then I should see "Failed to find representative information. Please enter a valid address."
-    And I should not see "Kamala D. Harris"
-    And I should not see "Alex Padilla"

@@ -5,6 +5,7 @@ class Representative < ApplicationRecord
 
   def self.civic_api_to_representative_params(rep_info)
     reps = []
+    return [] if rep_info.nil? 
 
     rep_info.officials.each_with_index do |official, index|
       ocdid_temp = ''

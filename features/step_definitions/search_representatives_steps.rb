@@ -1,4 +1,4 @@
-# features/step_definitions/search_steps.rb
+# features/step_definitions/search_representatives_steps.rb
 # When("I enter {string} and click {string}") do |address, button_text|
 #   fill_in 'address', with: address
 #   click_button button_text
@@ -32,3 +32,6 @@ Then /^I should not see the following text (.*)$/ do |text|
   expect(page).not_to have_content(text)
 end
 
+Then('I should be on the representatives search page') do
+  expect(page).to have_current_path('/representatives/search')  # Update with the correct route if different
+end
