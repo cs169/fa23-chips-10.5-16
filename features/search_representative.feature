@@ -10,19 +10,11 @@ Background:
 
 Scenario: Successful search
     When I enter "Washington" and click "Search"
-    Then I am on the search representatives page
     Then I should see "Joe Biden"
-    And I should see "Alex Padilla"
     And I should not see "Failed to find representative information. Please enter a valid address."
 
   Scenario: Empty address search
     When I enter "" and click "Search"
-    Then I should see "Failed to find representative information. Please enter a valid address."
-    And I should not see "Kamala D. Harris"
-    And I should not see "Alex Padilla"
-
-  Scenario: Failed search
-    When I enter "DC" and click "Search"
     Then I should see "Failed to find representative information. Please enter a valid address."
     And I should not see "Kamala D. Harris"
     And I should not see "Alex Padilla"

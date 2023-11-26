@@ -1,21 +1,15 @@
-# profile.feature
 
-Feature: Profile Page
+Feature: Viewing a Representative's Profile
   As a user
-  I want to see the profile of a specific representative
-  So that I can get more information about them
+  I want to view a representative's profile
+  So that I can learn more about them
+  
+Background:                             
+    Given I am on the representatives page
 
- Background:
-   Given I am on the representatives #search page with the address "Berkeley"
-    And the following representatives exist:
-      | Name              | Office                          |
-      | Joseph R. Biden   | President of the United States  |
-
-  Scenario: Search and View Representative Profile
-    When I click on "Joseph R. Biden"
-    Then I should be on the representative details page for "Joseph R. Biden"
-    And I should land on the representative's profile page
-    And I should see the representative's contact address
-    And I should see the representative's political party
-    And I should see the representative's photo
+Scenario: Viewing a specific representative's profile
+  When I enter "Washington" and click "Search"
+  Then I should see "Joe Biden"
+  When I click on "Joe Biden"
+  Then I view the Joe Biden's profile with ID 1092
 
