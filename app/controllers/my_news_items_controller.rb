@@ -22,6 +22,8 @@ class MyNewsItemsController < SessionController
   end
   
   def update_rating
+    @representative = Representative.find(params[:selected_representative])
+    @news_item = NewsItem.new
   end
 
   def update

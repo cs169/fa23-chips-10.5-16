@@ -13,6 +13,7 @@
            <div style="display: inline-block;">
           <%= select_tag 'selected_rating', options_for_select([1, 2, 3, 4, 5].map { |rating| [rating, rating] }), prompt: 'Choose Rating', class: 'form-control' %>
         </div>
+         <%= hidden_field_tag 'selected_representative', @representative.id %>
         </div>
 
         <%= submit_tag 'Update News Item', class: 'btn btn-primary' %>

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
     # Routes for Representatives
     resources :representatives, only: [:index]
-    get "update_rating", to:"my_news_item#update_rating", as:"update_rating"
+    post "update_rating", to:"my_news_items#update_rating", as:"update_rating"
     resources :representatives do
         resources :news_items, only: %i[index show]
         get '/representatives/:representative_id/my_news_item/show' => 'my_news_items#show', 
