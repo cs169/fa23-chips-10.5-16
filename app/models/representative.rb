@@ -19,7 +19,7 @@ class Representative < ApplicationRecord
       end
       
       address = "#{official.address[0].line1}, #{official.address[0].city}, #{official.address[0].state}, #{official.address[0].zip}" if official.address
-      rep = Representative.create!({
+      rep = Representative.find_or_create_by!({
         name: official.name, ocdid: ocdid_temp, title: title_temp, party: (official.party unless official.party.nil?), address: address,
         photo: official.photo_url
       })
