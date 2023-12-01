@@ -42,11 +42,13 @@ class MyNewsItemsController < SessionController
   private
 
   def set_representative
-    @representative = Representative.find(
-      params[:selected_representative]
-      # params[:representative_id]
-    )
+    if params[:selected_representative].present?
+      @representative = Representative.find(params[:selected_representative])
+    else
+      @representative = Representative.find(params[:representative_id])
+    end
   end
+  
 
   def set_representatives_list
     @representatives_list = Representative.all.map { |r| [r.name, r.id] }
