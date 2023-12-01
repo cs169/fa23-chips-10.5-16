@@ -3,7 +3,7 @@
     <div class="col-md-8 offset-md-2 text-center">
       <h1 class="mt-4">Edit News Items</h1>
       <p>Selected Representative: <strong><%= @representative.name %></strong></p>
-      <p>Selected Issue: <strong><%= @issue %></strong></p>
+      <p>Selected Issue: <strong> <%= @issue %> </strong></p>
 
       <%= form_tag(update_rating_path, method: :post, id: 'edit_news_item') do %>
         <div class="form-group">
