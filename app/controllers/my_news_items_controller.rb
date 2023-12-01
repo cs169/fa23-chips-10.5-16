@@ -20,6 +20,9 @@ class MyNewsItemsController < SessionController
       render :new, error: 'An error occurred when creating the news item.'
     end
   end
+  
+  def update_rating
+  end
 
   def update
     if @news_item.update(news_item_params)
@@ -40,7 +43,8 @@ class MyNewsItemsController < SessionController
 
   def set_representative
     @representative = Representative.find(
-      params[:representative_id]
+      params[:selected_representative]
+      # params[:representative_id]
     )
   end
 
