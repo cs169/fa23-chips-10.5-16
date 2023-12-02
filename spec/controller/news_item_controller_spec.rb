@@ -24,4 +24,10 @@ RSpec.describe NewsItemsController, type: :controller do
       end
     end
   end
+
+  describe 'API get top5' do 
+    it 'properly calls api' do
+      #allow(controller).to_receive('get')
+    end
+  end
 end
