@@ -26,40 +26,22 @@ class MyNewsItemsController < SessionController
 
   def get_top5_from_api
     apikey = Rails.application.credentials[:NEWS_API_KEY]
-
-    issue = params[:selected_issue]
-    space = '%20'
-    word = @representative.name + space + issue
-
-    url = "https://newsapi.org/v2/everything?q=#{word}&apiKey=#{apikey}"
-
-    uri = URI(url)
-    res = Net::HTTP.get_response(uri)
-    # puts res.body if res.is_a?(Net::HTTPSuccess)
-
-    response = res.body
-    real_response = JSON.parse(response)
-
-    if real_response['status'] == 'error'
-      # errors
-    else
-      articles = real_response['articles']
-      @top_five = []
-      count = 0
-      articles.each do |article|
-        item = NewsItem.news_api_to_params(article, params[:representative_id])
-        @top_five.push(item)
-        count += 1
-        break if count >= 5
-      end
+    @top_five = NewsItem.news_api_to_params(apikey, params, @representative.name)
+    puts apikey
+    puts @top_five
+    if @top_five.nil?
+      flash["error"] = "No search result!"
+    else 
+      render '/my_news_items/show'
     end
-    render '/my_news_items/show'
   end
+  
+
 
   def update_rating
     @representative = Representative.find(params[:selected_representative])
     # @news_item = NewsItem.new
-    @news_item = NewsItem.new(link: params[:news_link], title: params[:news_title], description: params[:news_description], representative_id: params[:representative_id], rating:params[:rating])
+    @news_item = NewsItem.create!(link: params[:news_link], title: params[:news_title], description: params[:news_description], representative_id: params[:selected_representative], rating:params[:rating])
     if @news_item.save
       redirect_to representative_news_item_path(@representative, @news_item),
                   notice: 'News item was successfully created.'
