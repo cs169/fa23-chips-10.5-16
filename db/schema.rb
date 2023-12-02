@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_21_220952) do
+ActiveRecord::Schema.define(version: 2023_11_30_005720) do
 
   create_table "counties", force: :cascade do |t|
     t.string "name", null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2023_11_21_220952) do
     t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "issue"
     t.index ["county_id"], name: "index_events_on_county_id"
   end
 
@@ -40,6 +41,7 @@ ActiveRecord::Schema.define(version: 2023_11_21_220952) do
     t.integer "representative_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "issue"
     t.index ["representative_id"], name: "index_news_items_on_representative_id"
   end
 
