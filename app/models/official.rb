@@ -10,4 +10,3 @@ class Official
     @photo_url = photo_url
   end
 end
-

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'google/apis/civicinfo_v2'
 
 class SearchController < ApplicationController
@@ -14,7 +15,7 @@ class SearchController < ApplicationController
         service.key = Rails.application.credentials[:GOOGLE_API_KEY]
         result = service.representative_info_by_address(address: address)
         @representatives = Representative.civic_api_to_representative_params(result)
-        render 'representatives/search'  # Render only on success
+        render 'representatives/search' # Render only on success
         return
       rescue Google::Apis::ClientError => e
         Rails.logger.error("Google API Error: #{e.message}")

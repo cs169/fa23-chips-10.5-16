@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # features/step_definitions/authentication_steps.rb
 
 Given 'I am on the login page' do
@@ -36,7 +38,6 @@ Given 'I am already logged in' do
   step 'I am logged in'
   # Ensure that the login step sets up the session or cookie needed to be logged in
   visit login_path
- 
 end
 
 When 'I go to the login page' do
