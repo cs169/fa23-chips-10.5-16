@@ -16,4 +16,5 @@ class NewsItem < ApplicationRecord
     description = api_response.description
     item = NewsItem.create!(link: url, title: title, description: description, representative_id: rep_id)
     return item
+  end
 end

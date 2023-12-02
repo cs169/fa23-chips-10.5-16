@@ -32,18 +32,21 @@ class NewsItemsController < ApplicationController
     apikey = Rails.application.credentials[:NEWS_API_KEY]
     n = News.new(apikey)
 
-    response = n.get_top_headlines(q: "#{@representative.name}%20#{params[:selected_issue])
+    response = n.get_top_headlines(q: "#{@representative.name} {params[:selected_issue]}")
 
     if response["status"].eq "error"
       #errors
     else 
       articles = response.articles
-      parsed_articles = []
+      @top_five = []
+      count = 0
       articles.each do |article|
         item = NewsItem.news_api_to_params(article, params[:representative_id])
-        parsed_articles.push(item)
+        @top_five.push(item)
+        count += 1
+        break if count >= 5
       end
-      return parsed_articles
+    end
   end
 
 

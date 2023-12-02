@@ -6,6 +6,19 @@
       <p>Selected Issue: <strong> <%= @issue %> </strong></p>
 
       <%= form_tag(update_rating_path, method: :post, id: 'edit_news_item') do %>
+        
+        <% @top_five.each do |news_item| %>
+          <div class="news-item">
+            <label for="title_<%= news_item.id %>">Title:</label>
+            <%= text_field_tag "title_#{news_item.id}", news_item.title, required: true %>
+
+            <label for="link_<%= news_item.id %>">Link:</label>
+            <%= text_field_tag "link_#{news_item.id}", news_item.link, required: true %>
+
+            <label for="description_<%= news_item.id %>">Description:</label>
+            <%= text_area_tag "description_#{news_item.id}", news_item.description, required: true %>
+          </div>
+        <% end %>
         <div class="form-group">
          <div style="display: inline-block; margin-right: 10px;">
           <%= label_tag 'rating', 'Select Rating:' %>
@@ -21,4 +34,3 @@
     </div>
   </div>
 </div>
-
