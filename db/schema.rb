@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_12_02_004746) do
+ActiveRecord::Schema.define(version: 2023_12_02_083342) do
 
   create_table "counties", force: :cascade do |t|
     t.string "name", null: false
@@ -33,16 +33,8 @@ ActiveRecord::Schema.define(version: 2023_12_02_004746) do
     t.index ["county_id"], name: "index_events_on_county_id"
   end
 
-  create_table "news_items", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "link", null: false
-    t.text "description"
-    t.integer "representative_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "issue"
-    t.index ["representative_id"], name: "index_news_items_on_representative_id"
-  end
+# Could not dump table "news_items" because of following StandardError
+#   Unknown type 'datatype' for column 'rating'
 
   create_table "representatives", force: :cascade do |t|
     t.string "name"

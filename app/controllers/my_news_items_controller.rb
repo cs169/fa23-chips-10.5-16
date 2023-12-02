@@ -59,13 +59,13 @@ class MyNewsItemsController < SessionController
   def update_rating
     @representative = Representative.find(params[:selected_representative])
     # @news_item = NewsItem.new
-    @news_item = NewsItem.new(news_item_params)
-    # if @news_item.save
-    #   redirect_to representative_news_item_path(@representative, @news_item),
-    #               notice: 'News item was successfully created.'
-    # else
-    #   render :new, error: 'An error occurred when creating the news item.'
-    # end
+    @news_item = NewsItem.new(link: params[:news_link], title: params[:news_title], description: params[:news_description], representative_id: params[:representative_id], rating:params[:rating])
+    if @news_item.save
+      redirect_to representative_news_item_path(@representative, @news_item),
+                  notice: 'News item was successfully created.'
+    else
+      render :new, error: 'An error occurred when creating the news item.'
+    end
     # redirect_to representatives_path
   end
 
