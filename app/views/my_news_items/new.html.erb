@@ -10,7 +10,7 @@
             <label for="representative">Select Representative:</label>
           </div>
           <div style="display: inline-block;">
-            <%= select_tag 'selected_representative', options_for_select(@representatives_list.map { |rep| [rep[0], rep[1]] }), prompt: 'Choose Representative', class: 'form-control', required: true %>
+            <%= select_tag 'selected_representative_id', options_for_select(@representatives_list.map { |rep| [rep[0], rep[1]] }), prompt: 'Choose Representative', class: 'form-control', required: true %>
           </div>
         </div>
 
@@ -19,7 +19,7 @@
             <label for="issue" class="col-form-label">Select Issue:</label>
           </div>
           <div style="display: inline-block;">
-            <%= select_tag 'selected_issue', options_for_select(@issues_list), prompt: 'Choose Issue', class: 'form-control', required: true %>
+            <%= select_tag 'issue', options_for_select(@issues_list), prompt: 'Choose Issue', class: 'form-control', required: true %>
           </div>
         </div>
 

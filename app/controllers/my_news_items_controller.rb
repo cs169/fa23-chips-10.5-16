@@ -27,7 +27,7 @@ class MyNewsItemsController < SessionController
   def get_top5_from_api
     apikey = Rails.application.credentials[:NEWS_API_KEY]
 
-    issue = params[:selected_issue]
+    issue = params[:issue]
     space = '%20'
     word = @representative.name + space + issue
 
@@ -57,15 +57,17 @@ class MyNewsItemsController < SessionController
   end
 
   def update_rating
-    @representative = Representative.find(params[:selected_representative])
+    # @representative = Representative.find(params[:selected_representative])
+    @representative = Representative.find(params[:selected_representative_id])
     @news_item = NewsItem.new
-    # @news_item = NewsItem.new(news_item_params)
-    # if @news_item.save
-    #   redirect_to representative_news_item_path(@representative, @news_item),
-    #               notice: 'News item was successfully created.'
-    # else
-    #   render :new, error: 'An error occurred when creating the news item.'
-    # end
+    @news_item = NewsItem.new(news_item_params)
+    puts @news_item
+    if @news_item.save
+      flash[:notice] = 'News item was successfully created.'
+    else
+      flash[:error] = 'An error occurred when creating the news item.'
+    end
+    # redirect_to representatives_path
   end
 
   def update
@@ -86,11 +88,12 @@ class MyNewsItemsController < SessionController
   private
 
   def set_representative
-    @representative = if params[:selected_representative].present?
-                        Representative.find(params[:selected_representative])
+    @representative = if params[:selected_representative_id].present?
+                        Representative.find(params[:selected_representative_id])
                       else
                         Representative.find(params[:representative_id])
                       end
+  
   end
 
   def set_representatives_list
@@ -98,7 +101,7 @@ class MyNewsItemsController < SessionController
   end
 
   def set_issue
-    @issue = params[:selected_issue].presence || 'Warning!!'
+    @issue = params[:issue].presence || 'Warning!!'
   end
 
   def set_issues_list
@@ -124,11 +127,16 @@ class MyNewsItemsController < SessionController
   end
 
   def set_news_item
-    @news_item = NewsItem.find(params[:id])
+    @news_item = if params[:selected_representative_id].present?
+                    NewsItem.find(params[:news])
+                else
+                    NewsItem.find(params[:id])
+                end
   end
 
   # Only allow a list of trusted parameters through.
   def news_item_params
-    params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue, :rating)
+    params.permit(:news, :title, :description, :link, 
+    :representative_id, :issue, :rating)
   end
 end
