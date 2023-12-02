@@ -6,6 +6,9 @@ class NewsItemsController < ApplicationController
 
   def index
     @news_items = @representative.news_items
+    puts "!!!!!!"
+    puts @new_items
+    puts @representative.name
   end
 
   def show; end
