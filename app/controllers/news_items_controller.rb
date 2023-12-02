@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'news-api'
 
 class NewsItemsController < ApplicationController
   before_action :set_representative
@@ -7,9 +6,9 @@ class NewsItemsController < ApplicationController
 
   def index
     @news_items = @representative.news_items
-    puts "!!!!!!"
-    puts @new_items
-    puts @representative.name
+    Rails.logger.debug '!!!!!!'
+    Rails.logger.debug @new_items
+    Rails.logger.debug @representative.name
   end
 
   def show; end
@@ -17,11 +16,11 @@ class NewsItemsController < ApplicationController
   private
 
   def set_representative
-    if params[:selected_representative].present?
-      @representative = Representative.find(params[:selected_representative])
-    else
-      @representative = Representative.find(params[:representative_id])
-    end
+    @representative = if params[:selected_representative].present?
+                        Representative.find(params[:selected_representative])
+                      else
+                        Representative.find(params[:representative_id])
+                      end
   end
 
   def set_news_item
@@ -34,9 +33,9 @@ class NewsItemsController < ApplicationController
 
     response = n.get_top_headlines(q: "#{@representative.name} {params[:selected_issue]}")
 
-    if response["status"].eq "error"
-      #errors
-    else 
+    if response['status'].eq 'error'
+      # errors
+    else
       articles = response.articles
       @top_five = []
       count = 0
@@ -48,6 +47,4 @@ class NewsItemsController < ApplicationController
       end
     end
   end
-
-
 end

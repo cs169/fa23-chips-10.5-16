@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AjaxController, type: :controller do
   describe '#counties' do
-    it 'renders the correct view' do 
+    it 'renders the correct view' do
       s = double(State)
       c = double(County)
-      allow(State).to receive(:find_by).with({:symbol => 'CA'}).and_return(s)
+      allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
       controller.params[:state_symbol] = 'CA'
       allow(s).to receive(:counties).and_return([c])
 
@@ -13,7 +15,7 @@ RSpec.describe AjaxController, type: :controller do
 
       response = controller.counties
 
-      expect(response).to eq(true)
+      expect(response).to be(true)
     end
   end
 end

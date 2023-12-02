@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature 'Profile Page', type: :feature do
-  let(:representative) { FactoryBot.create(:representative, address: '123 Main St', political_party: 'Example Party') }
+RSpec.describe 'Profile Page', type: :feature do
+  let(:representative) { create(:representative, address: '123 Main St', political_party: 'Example Party') }
 
-  scenario 'Search and View Representative Profile' do
+  it 'Search and View Representative Profile' do
     visit representatives_path
     fill_in 'address', with: '123 Main St'
     click_button 'Search'

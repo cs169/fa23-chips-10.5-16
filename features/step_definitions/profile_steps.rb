@@ -1,5 +1,6 @@
-# features/step_definitions/profile_steps.rb
+# frozen_string_literal: true
 
+# features/step_definitions/profile_steps.rb
 
 When('I view the representative\'s profile with ID {string}') do |id|
   visit "/representatives/#{id}"  # Update with the correct route if different
