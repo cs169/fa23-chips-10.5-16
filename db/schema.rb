@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2023_12_02_083342) do
     t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "issue"
     t.index ["county_id"], name: "index_events_on_county_id"
   end
 
