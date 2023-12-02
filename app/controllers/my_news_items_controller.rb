@@ -27,6 +27,13 @@ class MyNewsItemsController < SessionController
   def update_rating
     @representative = Representative.find(params[:selected_representative])
     @news_item = NewsItem.new
+    # @news_item = NewsItem.new(news_item_params)
+    # if @news_item.save
+    #   redirect_to representative_news_item_path(@representative, @news_item),
+    #               notice: 'News item was successfully created.'
+    # else
+    #   render :new, error: 'An error occurred when creating the news item.'
+    # end
   end
 
   def update
@@ -96,6 +103,6 @@ class MyNewsItemsController < SessionController
 
   # Only allow a list of trusted parameters through.
   def news_item_params
-    params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue)
+    params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue, :rating)
   end
 end
