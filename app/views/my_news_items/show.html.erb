@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-8 offset-md-2 text-center">
       <h1 class="mt-4">Edit News Items</h1>
-      <p>Selected Representative: <strong><%= @representative.name %></strong></p>
+     <%= link_to "Selected Representative: #{@representative.name}", representative_path(@representative) %>
       <p>Selected Issue: <strong> <%= @issue %> </strong></p>
 
       <%= form_tag(update_rating_path, method: :post, id: 'edit_news_item') do %>
