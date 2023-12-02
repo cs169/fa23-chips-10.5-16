@@ -10,14 +10,18 @@
         <% @top_five.each do |news_item| %>
           <div class="news-item">
             <label for="title_<%= news_item.id %>">Title:</label>
-            <%= text_field_tag "title_#{news_item.id}", news_item.title, required: true %>
+            <%= text_area_tag "title_#{news_item.id}", news_item.title, size: "25x4", required: true %>
 
             <label for="link_<%= news_item.id %>">Link:</label>
-            <%= text_field_tag "link_#{news_item.id}", news_item.link, required: true %>
+            <%= text_area_tag "link_#{news_item.id}", news_item.link, size: "25x4", required: true %>
 
             <label for="description_<%= news_item.id %>">Description:</label>
-            <%= text_area_tag "description_#{news_item.id}", news_item.description, required: true %>
+            <%= text_area_tag "description_#{news_item.id}", news_item.description, size: "25x4", required: true %>
+
+            <label for="radio_<%= news_item.id %>">Select:</label>
+            <input type="radio" id="radio_<%= news_item.id %>" value="radio_<%= news_item.id %>" name="radio">
           </div>
+          <br>
         <% end %>
         <div class="form-group">
          <div style="display: inline-block; margin-right: 10px;">

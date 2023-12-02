@@ -29,8 +29,10 @@ Rails.application.routes.draw do
     post "update_rating", to:"my_news_items#update_rating", as:"update_rating"
     resources :representatives do
         resources :news_items, only: %i[index show]
-        get '/representatives/:representative_id/my_news_item/show' => 'my_news_items#get_top5_from_api', 
-                                                                :as => :show_my_news_item
+        #get '/representatives/:representative_id/my_news_item/show' => 'my_news_items#show', 
+        #                                                        :as => :show_my_news_item
+        get '/representatives/:representative_id/my_news_item/top_five' => 'my_news_items#get_top5_from_api',
+                                                                :as => :top_five_news_item          
         get '/representatives/:representative_id/my_news_item/new' => 'my_news_items#new',
             :as                                                    => :new_my_news_item
         match '/representatives/:representative_id/my_news_item/new', to:  'my_news_items#create',

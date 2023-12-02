@@ -26,20 +26,24 @@ class MyNewsItemsController < SessionController
   
   def get_top5_from_api
     apikey = Rails.application.credentials[:NEWS_API_KEY]
-    n = News.new(apikey)  
-    puts response
-    puts apikey
-    puts n
+    
+    issue = params[:selected_issue]
+    space = "%20"
+    word = @representative.name + space + issue
 
-    puts @representative.name
-    puts params[:selected_issue]
+    url = "https://newsapi.org/v2/everything?q=#{word}&apiKey=#{apikey}"
 
-    response = n.get_top_headlines(q: "#{@representative.name}%20{params[:selected_issue]}")
+    uri = URI(url)
+    res = Net::HTTP.get_response(uri)
+    #puts res.body if res.is_a?(Net::HTTPSuccess)
 
-    if response["status"] == "error"
+    response = res.body
+    real_response = JSON.parse(response)
+
+    if real_response["status"] == "error"
       #errors
     else 
-      articles = response.articles
+      articles = real_response["articles"]
       @top_five = []
       count = 0
       articles.each do |article|
@@ -49,6 +53,7 @@ class MyNewsItemsController < SessionController
         break if count >= 5
       end
     end
+    render '/my_news_items/show'
   end
 
   def update_rating
