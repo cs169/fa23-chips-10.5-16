@@ -3,6 +3,7 @@
 class MyNewsItemsController < SessionController
   before_action :set_representative
   before_action :set_representatives_list
+  before_action :set_issue
   before_action :set_issues_list, only: [:new, :edit, :create, :update]
   before_action :set_news_item, only: %i[edit update destroy]
 
@@ -21,6 +22,18 @@ class MyNewsItemsController < SessionController
     else
       render :new, error: 'An error occurred when creating the news item.'
     end
+  end
+  
+  def update_rating
+    @representative = Representative.find(params[:selected_representative])
+    @news_item = NewsItem.new
+    # @news_item = NewsItem.new(news_item_params)
+    # if @news_item.save
+    #   redirect_to representative_news_item_path(@representative, @news_item),
+    #               notice: 'News item was successfully created.'
+    # else
+    #   render :new, error: 'An error occurred when creating the news item.'
+    # end
   end
 
   def update
@@ -41,13 +54,24 @@ class MyNewsItemsController < SessionController
   private
 
   def set_representative
-    @representative = Representative.find(
-      params[:representative_id]
-    )
+    if params[:selected_representative].present?
+      @representative = Representative.find(params[:selected_representative])
+    else
+      @representative = Representative.find(params[:representative_id])
+    end
   end
+  
 
   def set_representatives_list
     @representatives_list = Representative.all.map { |r| [r.name, r.id] }
+  end
+
+  def set_issue
+    if params[:selected_issue].present?
+      @issue = params[:selected_issue]
+    else 
+      @issue = "Warning!!"
+     end
   end
 
   def set_issues_list
@@ -79,6 +103,7 @@ class MyNewsItemsController < SessionController
 
   # Only allow a list of trusted parameters through.
   def news_item_params
-    params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue)
+    params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue, :rating)
+
   end
 end
