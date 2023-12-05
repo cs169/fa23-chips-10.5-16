@@ -30,8 +30,8 @@ RSpec.configure do |config|
         zip:          '12345'
       },
       divisions:       {
-        division_key_1: { name: 'Division Name 1', alsoKnownAs: ['Alias 1', 'Alias 2'], officeIndices: [0, 1] },
-        division_key_2: { name: 'Division Name 2', alsoKnownAs: ['Alias 3', 'Alias 4'], officeIndices: [2] }
+        # division_key_1: { name: 'Division Name 1', also_known_as: ['Alias 1', 'Alias 2'], office_indices: [0, 1] },
+        # division_key_2: { name: 'Division Name 2', also_known_as: ['Alias 3', 'Alias 4'], office_indices: [2] }
       },
       offices:         [
         {
