@@ -33,7 +33,7 @@ class MyNewsItemsController < SessionController
       set_issues_list
       render '/my_news_items/new', warning: 'No Search Results'
     else
-      render '/my_news_items/show' 
+      render '/my_news_items/show'
     end
   end
 
