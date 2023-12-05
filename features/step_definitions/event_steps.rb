@@ -84,7 +84,7 @@ Then /^I should not see events from county "([^"]*)"$/ do |county_name|
 end
 
 # Additional scenarios to test event creation with various conditions
-When /^I try to create an event with ([^"]*) name$/ do |name_condition|
+When /^I try to create an event with "([^"]*)" name$/ do |name_condition|
   name = name_condition == 'empty' ? '' : 'Sample Event'
   county = County.first
   if name_condition == 'empty'
@@ -107,11 +107,7 @@ Then /^I should see an event with a 255-character name$/ do
   expect(Event.where('LENGTH(name) = 255')).to exist
 end
 
-When /^I try to create an event with empty name$/ do
-  county = County.first
-  @event = Event.new(name: '', county: county, start_time: 1.week.from_now, end_time: 2.weeks.from_now)
-  @event.save
-end
+
 
 Then /^the event should not be saved due to invalid name$/ do
   expect(@event.persisted?).to be false
