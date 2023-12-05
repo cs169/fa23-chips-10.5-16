@@ -7,9 +7,9 @@ def stub_successful_response
   # Create Official instance with the Address array
   official_data = [Official.new('Joe Biden', [biden_address], 'Democratic Party', '')]
 
-  rep_info = RepInfo.new(office_data, official_data)
+  RepInfo.new(office_data, official_data)
 end
 
 def stub_unsucessful_response
-  rep_info = nil
+  nil
 end

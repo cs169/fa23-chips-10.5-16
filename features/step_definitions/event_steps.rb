@@ -26,7 +26,8 @@ end
 Given /^the following states exist:$/ do |table|
   table.hashes.each do |row|
     State.create!(name: row['name'], symbol: row['symbol'], fips_code: row['fips_code'],
-                  is_territory: row['is_territory'], lat_min: row['lat_min'], lat_max: row['lat_max'], long_min: row['long_min'], long_max: row['long_max'])
+                  is_territory: row['is_territory'], lat_min: row['lat_min'],
+                  lat_max: row['lat_max'], long_min: row['long_min'], long_max: row['long_max'])
   end
 end
 

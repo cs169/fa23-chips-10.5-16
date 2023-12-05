@@ -109,7 +109,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :test do
   gem 'capybara'
-  gem 'cucumber-rails', require: false
+  # gem 'cucumber-rails', require: false
   gem 'database_cleaner-active_record'
   gem 'factory_bot_rails'
 end

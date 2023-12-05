@@ -11,30 +11,17 @@ class NewsItem < ApplicationRecord
   end
 
   def self.news_api_to_params(apikey, params, name)
-    issue = params[:selected_issue]
-    space = '%20'
-    word = name + space + issue
-
-    url = "https://newsapi.org/v2/everything?q=#{word}&apiKey=#{apikey}"
-
-    uri = URI(url)
+    word = "#{name}%20#{params[:selected_issue]}"
+    uri = URI("https://newsapi.org/v2/everything?q=#{word}&apiKey=#{apikey}")
     res = Net::HTTP.get_response(uri)
-    # puts res.body if res.is_a?(Net::HTTPSuccess)
-
-    response = res.body
-    real_response = JSON.parse(response)
-
-    if real_response['status'] == 'error'
-      # errors
-    else
+    real_response = JSON.parse(res.body)
+    if real_response['status'] != 'error'
       articles = real_response['articles']
       @top_five = []
       count = 0
       articles.each do |article|
-        url = article['url']
-        title = article['title']
-        description = article['description']
-        item = NewsItem.new(link: url, title: title, description: description,
+        item = NewsItem.new(link: article['url'], title: article['title'],
+                            description: article['description'],
                             representative_id: params[:representative_id])
         @top_five.push(item)
         count += 1
