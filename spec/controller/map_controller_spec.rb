@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe MapController, type: :controller do
   describe '#state' do
     it 'finds the correct state' do
-      s = double(State)
-      c = double(County)
+      s = instance_double(State)
+      c = instance_double(County)
       allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
       controller.params[:state_symbol] = 'CA'
       allow(s).to receive(:counties).and_return([c])
@@ -33,9 +33,9 @@ RSpec.describe MapController, type: :controller do
 
   describe '#county' do
     it 'finds the correct county' do
-      s = double(State)
+      s = instance_double(State)
       allow(s).to receive(:id).and_return(2)
-      c = double(County)
+      c = instance_double(County)
       allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
       controller.params[:state_symbol] = 'CA'
       controller.params[:std_fips_code] = '10'
@@ -52,7 +52,7 @@ RSpec.describe MapController, type: :controller do
 
   describe '#index' do
     it 'home page works correctly' do
-      s = double(State)
+      s = instance_double(State)
       allow(State).to receive(:all).and_return([s])
       allow(s).to receive(:std_fips_code).and_return(2)
 
