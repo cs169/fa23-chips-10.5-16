@@ -4,7 +4,7 @@
       <h1 class="mt-4">Edit News Items</h1>
       <%= link_to "Selected Representative: #{@representative.name}", representative_path(@representative) %>
       <p>Selected Issue: <strong> <%= @issue %> </strong></p>
-      <p>Select an article:</p>
+      <p>Select an article:</p> 
       <%= form_tag(update_rating_path, method: :post, id: 'edit_news_item') do %>
 
         <% @top_five.each do |news_item| %>
