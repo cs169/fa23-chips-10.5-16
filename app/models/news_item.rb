@@ -34,13 +34,13 @@ class NewsItem < ApplicationRecord
         url = article['url']
         title = article['title']
         description = article['description']
-        item = NewsItem.new(link: url, title: title, description: description, representative_id: params[:representative_id])
+        item = NewsItem.new(link: url, title: title, description: description,
+                            representative_id: params[:representative_id])
         @top_five.push(item)
         count += 1
         break if count >= 5
       end
     end
-    return @top_five
+    @top_five
   end
-
 end

@@ -2,8 +2,6 @@
 
 # features/step_definitions/authentication_steps.rb
 
-
-
 When 'I click on {string}' do |link_name|
   click_link_or_button link_name
 end
@@ -37,8 +35,6 @@ Given 'I am already logged in' do
   # Ensure that the login step sets up the session or cookie needed to be logged in
   visit login_path
 end
-
-
 
 Then 'I should be redirected to the user profile page' do
   expect(current_path).to eq user_profile_path

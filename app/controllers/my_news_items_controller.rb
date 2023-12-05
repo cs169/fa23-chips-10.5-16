@@ -25,24 +25,23 @@ class MyNewsItemsController < SessionController
   end
 
   def get_top5_from_api
-    flash["danger"] = "No search result! Please choose a different representative or issue."
+    flash['danger'] = 'No search result! Please choose a different representative or issue.'
     apikey = Rails.application.credentials[:NEWS_API_KEY]
     @top_five = NewsItem.news_api_to_params(apikey, params, @representative.name)
     if @top_five.blank?
       # flash["error"] = "No search result!"
       set_issues_list
       render '/my_news_items/new', warning: 'No Search Results'
-    else 
+    else
       render '/my_news_items/show'
     end
   end
-  
-
 
   def update_rating
     @representative = Representative.find(params[:selected_representative])
     # @news_item = NewsItem.new
-    @news_item = NewsItem.create!(link: params[:news_link], title: params[:news_title], description: params[:news_description], representative_id: params[:selected_representative], rating:params[:rating])
+    @news_item = NewsItem.create!(link: params[:news_link], title: params[:news_title],
+                                  description: params[:news_description], representative_id: params[:selected_representative], rating: params[:rating])
     if @news_item.save
       redirect_to representative_news_item_path(@representative, @news_item),
                   notice: 'News item was successfully created.'

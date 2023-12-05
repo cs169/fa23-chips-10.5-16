@@ -6,7 +6,7 @@ require 'rails_helper'
 RSpec.describe Representative, type: :model do
   describe '.civic_api_to_representative_params' do
     Address = Struct.new(:line1, :city, :state, :zip)
-    address = Address.new("testline", "testcity", "teststate", "testzip")
+    address = Address.new('testline', 'testcity', 'teststate', 'testzip')
 
     office_data = [Office.new('senator', 'ocd-division/country:us/state:ny', [0])]
     official_data = [Official.new('Bob', [address], 'test', 'test')]

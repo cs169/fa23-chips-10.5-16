@@ -4,23 +4,21 @@ require 'rails_helper'
 
 RSpec.describe SearchController, type: :controller do
   describe '#search' do
-=begin
-    it 'renders the search page with representatives on successful API response' do
-      address = '123 Main St'
-      allow(controller).to receive(:params).and_return({ address: address })
-
-      # Stub Google API response
-      allow_any_instance_of(Google::Apis::CivicinfoV2::CivicInfoService)
-        .to receive(:representative_info_by_address)
-        .with(address: address)
-        .and_return(stub_successful_response)
-
-      get :search
-
-      expect(response).to render_template('representatives/search')
-      expect(assigns(:representatives)).to be_present
-    end
-=end
+    #     it 'renders the search page with representatives on successful API response' do
+    #       address = '123 Main St'
+    #       allow(controller).to receive(:params).and_return({ address: address })
+    #
+    #       # Stub Google API response
+    #       allow_any_instance_of(Google::Apis::CivicinfoV2::CivicInfoService)
+    #         .to receive(:representative_info_by_address)
+    #         .with(address: address)
+    #         .and_return(stub_successful_response)
+    #
+    #       get :search
+    #
+    #       expect(response).to render_template('representatives/search')
+    #       expect(assigns(:representatives)).to be_present
+    #     end
     it 'renders the search page with empty representatives on empty address' do
       allow(controller).to receive(:params).and_return({ address: '' })
 

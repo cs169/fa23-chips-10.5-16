@@ -107,8 +107,6 @@ Then /^I should see an event with a 255-character name$/ do
   expect(Event.where('LENGTH(name) = 255')).to exist
 end
 
-
-
 Then /^the event should not be saved due to invalid name$/ do
   expect(@event.persisted?).to be false
   expect(@event.errors[:name]).to include("can't be blank")
