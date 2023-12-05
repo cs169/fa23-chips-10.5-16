@@ -25,7 +25,7 @@ class MyNewsItemsController < SessionController
   end
 
   def get_top5_from_api
-    flash["error"] = "No search result!"
+    flash["danger"] = "No search result! Please choose a different representative or issue."
     apikey = Rails.application.credentials[:NEWS_API_KEY]
     @top_five = NewsItem.news_api_to_params(apikey, params, @representative.name)
     if @top_five.blank?
