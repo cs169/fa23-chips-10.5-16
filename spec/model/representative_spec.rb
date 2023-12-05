@@ -20,15 +20,15 @@ RSpec.describe Representative, type: :model do
       end
     end
 
-    context 'when the representative already exists' do
-      before do
-        described_class.create!(name: 'Bob', ocdid: 'ocd-division/country:us/state:ny', title: 'senator')
-      end
+    # context 'when the representative already exists' do
+    #   before do
+    #     described_class.create!(name: 'Bob', ocdid: 'ocd-division/country:us/state:ny', title: 'senator')
+    #   end
 
-      # it 'does not create a new representative' do
-      #   expect { described_class.civic_api_to_representative_params(rep_info) }
-      #     .not_to change(described_class, :count)
-      # end
-    end
+    # it 'does not create a new representative' do
+    #   expect { described_class.civic_api_to_representative_params(rep_info) }
+    #     .not_to change(described_class, :count)
+    # end
+    # end
   end
 end

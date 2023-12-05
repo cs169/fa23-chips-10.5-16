@@ -5,17 +5,23 @@ require 'rails_helper'
 RSpec.describe MapController, type: :controller do
   describe '#state' do
     it 'finds the correct state' do
-      s = instance_double(State)
-      c = instance_double(County)
-      allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
+      # s = instance_double(State)
+      # c = instance_double(County)
+      # allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
+      # controller.params[:state_symbol] = 'CA'
+      # allow(s).to receive(:counties).and_return([c])
+      # allow(c).to receive(:std_fips_code).and_return(1)
+
+      # response = controller.state
+
+      # expect(response).to eq({ 1=>c })
+
+      # expect(assigns(:county_details)).to be_present
+      state = instance_double(State, counties: [county = instance_double(County, std_fips_code: 1)])
+      allow(State).to receive(:find_by).with(symbol: 'CA').and_return(state)
       controller.params[:state_symbol] = 'CA'
-      allow(s).to receive(:counties).and_return([c])
-      allow(c).to receive(:std_fips_code).and_return(1)
 
-      response = controller.state
-
-      expect(response).to eq({ 1=>c })
-
+      expect(controller.state).to eq({ 1 => county })
       expect(assigns(:county_details)).to be_present
     end
 
@@ -33,19 +39,25 @@ RSpec.describe MapController, type: :controller do
 
   describe '#county' do
     it 'finds the correct county' do
-      s = instance_double(State)
-      allow(s).to receive(:id).and_return(2)
-      c = instance_double(County)
-      allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
-      controller.params[:state_symbol] = 'CA'
-      controller.params[:std_fips_code] = '10'
-      allow(s).to receive(:counties).and_return([c])
-      allow(c).to receive(:std_fips_code).and_return(1)
-      allow(County).to receive(:find_by).with({ state: 2, fips_code: 10 }).and_return(c)
+      # s = instance_double(State)
+      # allow(s).to receive(:id).and_return(2)
+      # c = instance_double(County)
+      # allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
+      # controller.params[:state_symbol] = 'CA'
+      # controller.params[:std_fips_code] = '10'
+      # allow(s).to receive(:counties).and_return([c])
+      # allow(c).to receive(:std_fips_code).and_return(1)
+      # allow(County).to receive(:find_by).with({ state: 2, fips_code: 10 }).and_return(c)
 
-      response = controller.county
+      # response = controller.county
 
-      expect(response).to eq({ 1=>c })
+      # expect(response).to eq({ 1=>c })
+      # expect(assigns(:county_details)).to be_present
+      state = instance_double(State, id: 2, counties: [county = instance_double(County, std_fips_code: 1)])
+      allow(State).to receive(:find_by).with(symbol: 'CA').and_return(state)
+      controller.params.merge!(state_symbol: 'CA', std_fips_code: '10')
+
+      expect(controller.county).to eq({ 1 => county })
       expect(assigns(:county_details)).to be_present
     end
   end
