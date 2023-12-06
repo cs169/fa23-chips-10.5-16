@@ -14,7 +14,7 @@
             <%= hidden_field_tag "news", news_item.id %>
             <%= hidden_field_tag "news_title", news_item.title %>
             <%= hidden_field_tag "news_link", news_item.link %>
-            <%= hidden_field_tag "news_description", news_item.link %>
+            <%= hidden_field_tag "news_description", news_item.description %>
             <div class="form-group">
               <label for="radio_<%= news_item.id %>"><strong>Link:</strong> <%= link_to(news_item.link, news_item.link, target: "_blank", rel: "noopener noreferrer") %></label>
             </div>
