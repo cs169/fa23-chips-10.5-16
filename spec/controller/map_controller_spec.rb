@@ -5,7 +5,6 @@ require 'rails_helper'
 RSpec.describe MapController, type: :controller do
   describe '#state' do
     it 'finds the correct state' do
-      # s = instance_double(State)
       # c = instance_double(County)
       # allow(State).to receive(:find_by).with({ symbol: 'CA' }).and_return(s)
       # controller.params[:state_symbol] = 'CA'
