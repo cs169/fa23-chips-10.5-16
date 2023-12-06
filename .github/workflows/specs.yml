@@ -1,4 +1,4 @@
-name: All Specs
+ token name: All Specs
 on:
   - push
   - pull_request
