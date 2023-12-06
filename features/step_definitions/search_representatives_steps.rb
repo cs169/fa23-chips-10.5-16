@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # features/step_definitions/search_representatives_steps.rb
 # When("I enter {string} and click {string}") do |address, button_text|
 #   fill_in 'address', with: address
@@ -13,11 +15,11 @@ When('I enter {string} and click {string}') do |address, button_text|
       .to receive(:representative_info_by_address)
       .with(address: address)
       .and_return(stub_successful_response)
-  else 
+  else
     allow_any_instance_of(Google::Apis::CivicinfoV2::CivicInfoService)
-    .to receive(:representative_info_by_address)
-    .with(address: address)
-    .and_return(stub_unsucessful_response)
+      .to receive(:representative_info_by_address)
+      .with(address: address)
+      .and_return(stub_unsucessful_response)
   end
 
   fill_in 'address', with: address

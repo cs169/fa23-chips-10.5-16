@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # features/step_definitions/event_steps.rb
 
 # Helper method to parse natural language date expressions
@@ -23,7 +25,9 @@ end
 
 Given /^the following states exist:$/ do |table|
   table.hashes.each do |row|
-    State.create!(name: row['name'], symbol: row['symbol'], fips_code: row['fips_code'], is_territory: row['is_territory'], lat_min: row['lat_min'], lat_max: row['lat_max'], long_min: row['long_min'], long_max: row['long_max'])
+    State.create!(name: row['name'], symbol: row['symbol'], fips_code: row['fips_code'],
+                  is_territory: row['is_territory'], lat_min: row['lat_min'],
+                  lat_max: row['lat_max'], long_min: row['long_min'], long_max: row['long_max'])
   end
 end
 
@@ -45,16 +49,16 @@ end
 
 When /^I try to create an event "([^"]*)" in "([^"]*)" with a start time in the past$/ do |name, county_name|
   county = County.find_by(name: county_name)
-  expect {
+  expect do
     Event.create(name: name, county: county, start_time: 1.day.ago, end_time: Time.zone.now + 1.week)
-  }.to_not change(Event, :count)
+  end.to_not change(Event, :count)
 end
 
 When /^I try to create an event "([^"]*)" in "([^"]*)" with an end time before its start time$/ do |name, county_name|
   county = County.find_by(name: county_name)
-  expect {
+  expect do
     Event.create(name: name, county: county, start_time: Time.zone.now + 1.week, end_time: Time.zone.now)
-  }.to_not change(Event, :count)
+  end.to_not change(Event, :count)
 end
 
 Then /^the event should not be saved due to invalid (start|end) time$/ do |_|
@@ -64,7 +68,8 @@ end
 # New Step Definitions
 
 Given /^the state "([^"]*)" exists$/ do |state_name|
-  State.create!(name: state_name, symbol: state_name[0..1].upcase, fips_code: Random.rand(1..99), is_territory: false, lat_min: 30, lat_max: 50, long_min: -120, long_max: -70)
+  State.create!(name: state_name, symbol: state_name[0..1].upcase, fips_code: Random.rand(1..99), is_territory: false,
+                lat_min: 30, lat_max: 50, long_min: -120, long_max: -70)
 end
 
 Given /^I filter events by state "([^"]*)"$/ do |state_symbol|
@@ -80,12 +85,14 @@ Then /^I should not see events from county "([^"]*)"$/ do |county_name|
 end
 
 # Additional scenarios to test event creation with various conditions
-When /^I try to create an event with ([^"]*) name$/ do |name_condition|
+When /^I try to create an event with "([^"]*)" name$/ do |name_condition|
   name = name_condition == 'empty' ? '' : 'Sample Event'
   county = County.first
-  expect {
-    Event.create(name: name, county: county, start_time: Time.zone.now + 1.week, end_time: Time.zone.now + 2.weeks)
-  }.to_not change(Event, :count) if name_condition == 'empty'
+  if name_condition == 'empty'
+    expect do
+      Event.create(name: name, county: county, start_time: Time.zone.now + 1.week, end_time: Time.zone.now + 2.weeks)
+    end.to_not change(Event, :count)
+  end
 end
 
 Then /^the event should not be saved due to invalid name$/ do
@@ -99,12 +106,6 @@ end
 
 Then /^I should see an event with a 255-character name$/ do
   expect(Event.where('LENGTH(name) = 255')).to exist
-end
-
-When /^I try to create an event with empty name$/ do
-  county = County.first
-  @event = Event.new(name: '', county: county, start_time: 1.week.from_now, end_time: 2.weeks.from_now)
-  @event.save
 end
 
 Then /^the event should not be saved due to invalid name$/ do

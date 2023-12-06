@@ -48,10 +48,6 @@ When /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
-When /^(?:|I )press "([^"]*)"$/ do |button|
-  click_button(button)
-end
-
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
@@ -80,6 +76,12 @@ When /^(?:|I )fill in the following:$/ do |fields|
     When %{I fill in "#{name}" with "#{value}"}
   end
 end
+
+When(/^I choose "([^"]*)" from the "([^"]*)" dropdown$/) do |value, dropdown_id|
+  select(value, from: dropdown_id)
+  find(:css, "##{dropdown_id}", visible: :all)
+end
+
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)

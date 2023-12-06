@@ -1,19 +1,39 @@
-<div class="container-fluid py-5">
+<div class="container-fluid py-5 mx-40 mt-0">
   <div class="row">
-    <div class="col-md-8 offset-md-2 text-center">
+    <div>
       <h1 class="mt-4">Edit News Items</h1>
-     <%= link_to "Selected Representative: #{@representative.name}", representative_path(@representative) %>
+      <%= link_to "Selected Representative: #{@representative.name}", representative_path(@representative) %>
       <p>Selected Issue: <strong> <%= @issue %> </strong></p>
-
+      <p>Select an article:</p> 
       <%= form_tag(update_rating_path, method: :post, id: 'edit_news_item') do %>
-        <div class="form-group">
-         <div style="display: inline-block; margin-right: 10px;">
-          <%= label_tag 'rating', 'Select Rating:' %>
+
+        <% @top_five.each do |news_item| %>
+          <div class="news-item">
+             <input type="radio" name="radio" required>
+            <p><strong>Title:</strong> <%= news_item.title %></p>
+            <%= hidden_field_tag "news", news_item.id %>
+            <%= hidden_field_tag "news_title", news_item.title %>
+            <%= hidden_field_tag "news_link", news_item.link %>
+            <%= hidden_field_tag "news_description", news_item.link %>
+            <div class="form-group">
+              <label for="radio_<%= news_item.id %>"><strong>Link:</strong> <%= link_to(news_item.link, news_item.link, target: "_blank", rel: "noopener noreferrer") %></label>
             </div>
-           <div style="display: inline-block;">
-          <%= select_tag 'selected_rating', options_for_select([1, 2, 3, 4, 5].map { |rating| [rating, rating] }), prompt: 'Choose Rating', class: 'form-control', required: true %>
-        </div>
-         <%= hidden_field_tag 'selected_representative', @representative.id %>
+
+            <div class="form-group">
+              <p><strong>Description:</strong> <%= news_item.description %></p>
+            </div>
+          </div>
+          <br>
+        <% end %>
+
+        <div class="form-group">
+          <div style="display: inline-block; margin-right: 10px;">
+            <%= label_tag 'rating', 'Select Rating:' %>
+          </div>
+          <div style="display: inline-block;">
+            <%= select_tag 'rating', options_for_select([1, 2, 3, 4, 5].map { |rating| [rating, rating] }), prompt: 'Choose Rating', class: 'form-control', required: true %>
+          </div>
+          <%= hidden_field_tag 'selected_representative', @representative.id %>
         </div>
 
         <%= submit_tag 'Update News Item', class: 'btn btn-primary' %>
@@ -21,4 +41,3 @@
     </div>
   </div>
 </div>
-

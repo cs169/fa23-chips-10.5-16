@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Address
   attr_accessor :line1, :city, :state, :zip
 

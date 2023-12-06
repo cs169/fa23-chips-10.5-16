@@ -6,9 +6,9 @@ class NewsItemsController < ApplicationController
 
   def index
     @news_items = @representative.news_items
-    puts "!!!!!!"
-    puts @new_items
-    puts @representative.name
+    # Rails.logger.debug '!!!!!!'
+    # Rails.logger.debug @new_items
+    # Rails.logger.debug @representative.name
   end
 
   def show; end
@@ -16,9 +16,11 @@ class NewsItemsController < ApplicationController
   private
 
   def set_representative
-    @representative = Representative.find(
-      params[:representative_id]
-    )
+    @representative = if params[:selected_representative].present?
+                        Representative.find(params[:selected_representative])
+                      else
+                        Representative.find(params[:representative_id])
+                      end
   end
 
   def set_news_item

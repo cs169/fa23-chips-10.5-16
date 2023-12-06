@@ -16,6 +16,10 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
 
+    when /the new news item page/
+      representative_id = Representative.first.id # or set this to a specific ID as needed
+      representative_new_my_news_item_path(representative_id)
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
