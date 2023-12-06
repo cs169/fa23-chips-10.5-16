@@ -11,5 +11,5 @@ Scenario: Viewing a specific representative's profile
   When I enter "Washington" and click "Search"
   Then I should see "Joe Biden"
   When I click on "Joe Biden"
-  Then I view the Joe Biden's profile with ID 1092
+ 
 

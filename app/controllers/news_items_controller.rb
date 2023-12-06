@@ -6,9 +6,9 @@ class NewsItemsController < ApplicationController
 
   def index
     @news_items = @representative.news_items
-    Rails.logger.debug '!!!!!!'
-    Rails.logger.debug @new_items
-    Rails.logger.debug @representative.name
+    # Rails.logger.debug '!!!!!!'
+    # Rails.logger.debug @new_items
+    # Rails.logger.debug @representative.name
   end
 
   def show; end
