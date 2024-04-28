@@ -7,47 +7,6 @@ political events in their area as well as aggregate, share and view news items i
 
 </div>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Frontend Features</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; }
-        h1 { font-size: 24px; }
-        h2 { font-size: 20px; margin-top: 20px; }
-        p { margin-top: 10px; }
-        .bold { font-weight: bold; }
-    </style>
-</head>
-<body>
-    <h1>Frontend Features</h1>
-
-    <h2>Interactive Maps</h2>
-    <p>The application leverages D3.js and TopoJSON to render interactive maps that provide geographic visualizations at the national, state, and county levels. Users can interact with these maps to view detailed information about different regions.</p>
-    <ul>
-        <li><span class="bold">National Map View:</span> Displays all states with capabilities to interact and navigate to state-specific views.</li>
-        <li><span class="bold">State Map View:</span> Upon selecting a state, the map zooms to that state's boundaries and shows its counties.</li>
-        <li><span class="bold">County Interaction:</span> Users can hover over or click on counties to fetch detailed data or navigate to related content.</li>
-    </ul>
-
-    <h2>Dynamic Event Handlers</h2>
-    <p>Interactive elements on the maps respond to user inputs:</p>
-    <ul>
-        <li>Hover effects provide additional information about the hovered region.</li>
-        <li>Click actions redirect the user to detailed pages or trigger further actions based on the region selected.</li>
-    </ul>
-
-    <h2>AJAX-based Dynamic Filtering</h2>
-    <p>The application uses AJAX to dynamically update the selection options based on user input:</p>
-    <ul>
-        <li>Filters for viewing events or news by state or county, updating available options as the user makes selections.</li>
-        <li>The interface adjusts in real-time, providing a responsive user experience for data filtering.</li>
-    </ul>
-
-    <h2>Styling and Responsiveness</h2>
-    <p>The application uses SASS for styling, ensuring that the map and other UI components are responsive and visually appealing across different devices.</p>
-</body>
-</html>
 
 
 <!-- TODO: Update these for your repo! -->
